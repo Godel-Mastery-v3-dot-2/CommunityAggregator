@@ -319,3 +319,5 @@ typings/
 # dotenv environment variables file
 .env
 
+# Angular output directory
+dist/ 
