@@ -5,7 +5,7 @@ namespace GodelTech.CommunityAggregator.Dal.EntityFramework
 {
     public sealed class EntityContext : DbContext
     {
-        public DbSet<News> Newses { get; set; }
+        public DbSet<News> News { get; set; }
 
         public EntityContext()
         {
