@@ -1,20 +1,20 @@
-﻿using GodelTech.CommunityAggregator.Dal.Models;
+﻿using GodelTech.CommunityAggregator.Dal.EntityFramework.Configurations;
+using GodelTech.CommunityAggregator.Dal.Models;
 using Microsoft.EntityFrameworkCore;
 
 namespace GodelTech.CommunityAggregator.Dal.EntityFramework
 {
     public sealed class EntityContext : DbContext
     {
-        public DbSet<News> News { get; set; }
+        public DbSet<Article> Articles { get; set; }
 
-        public EntityContext()
+        public EntityContext(DbContextOptions<EntityContext> options) : base(options)
         {
-            Database.EnsureCreated();
         }
 
-        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            optionsBuilder.UseSqlServer("Server=(localdb)\\mssqllocaldb;Database=[CommunityAggregator];Trusted_Connection=True;");
+            modelBuilder.ApplyConfiguration(new ArticleConfiguration());
         }
     }
 }

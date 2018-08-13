@@ -1,11 +1,10 @@
-﻿using System;
-using GodelTech.CommunityAggregator.Dal.Models;
+﻿using GodelTech.CommunityAggregator.Dal.Models;
 
 namespace GodelTech.CommunityAggregator.Dal.Interfaces
 {
-    public interface IUnitOfWork : IDisposable
+    public interface IUnitOfWork
     {
-        IRepository<News> NewsRepository { get; set; }
+        IRepository<Article> NewsRepository { get; }
         void Commit();
     }
 }

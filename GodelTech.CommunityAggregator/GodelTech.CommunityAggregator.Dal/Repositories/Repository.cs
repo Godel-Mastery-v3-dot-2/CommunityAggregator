@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using GodelTech.CommunityAggregator.Dal.Interfaces;
 using Microsoft.EntityFrameworkCore;
@@ -9,41 +8,39 @@ namespace GodelTech.CommunityAggregator.Dal.Repositories
     public class Repository<T> : IRepository<T>
         where T: class
     {
-        private readonly DbSet<T> entity;
-        private readonly DbContext dbContext;
+        private readonly DbSet<T> dbSet;
 
         public Repository(DbContext dbContext)
         {
-            this.dbContext = dbContext;
-            entity = dbContext.Set<T>();
+            dbSet = dbContext.Set<T>();
         }
 
-        public IEnumerable<T> GetAll()
+        public IList<T> GetAll()
         {
-            return entity;
+            return dbSet.ToList();
         }
 
-        public IEnumerable<T> Get(System.Linq.Expressions.Expression<Func<T, bool>> predicate)
+        public T GetItem(int id)
         {
-            return entity.Where(predicate);
+            return dbSet.Find(id);
         }
 
         public void Create(T item)
         {
-            entity.Add(item);
+            dbSet.Add(item);
         }
 
         public void Update(T item)
         {
-            dbContext.Entry(item).State = EntityState.Modified;
+            dbSet.Update(item);
         }
 
         public void Remove(int id)
         {
-            var item = entity.Find(id);
+            var item = dbSet.Find(id);
             if (item != null)
             {
-                entity.Remove(item);
+                dbSet.Remove(item);
             }
         }
     }

@@ -5,7 +5,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="EntityFramework\Configurations\" />
+    <Compile Remove="EntityFramework\ContextFactory.cs" />
   </ItemGroup>
 
   <ItemGroup>

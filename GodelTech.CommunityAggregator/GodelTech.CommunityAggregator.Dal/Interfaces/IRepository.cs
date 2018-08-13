@@ -1,14 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq.Expressions;
+﻿using System.Collections.Generic;
 
 namespace GodelTech.CommunityAggregator.Dal.Interfaces
 {
     public interface IRepository<T>
         where T : class
     {
-        IEnumerable<T> GetAll();
-        IEnumerable<T> Get(Expression<Func<T, bool>> predicate);
+        IList<T> GetAll();
+        T GetItem(int id);
         void Create(T item);
         void Update(T item);
         void Remove(int id);
