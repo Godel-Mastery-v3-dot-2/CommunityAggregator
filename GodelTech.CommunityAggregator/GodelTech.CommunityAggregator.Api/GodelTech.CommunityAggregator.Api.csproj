@@ -14,6 +14,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\GodelTech.CommunityAggregator.Bll\GodelTech.CommunityAggregator.Bll.csproj" />
+    <ProjectReference Include="..\GodelTech.CommunityAggregator.Dal\GodelTech.CommunityAggregator.Dal.csproj" />
   </ItemGroup>
 
 </Project>
