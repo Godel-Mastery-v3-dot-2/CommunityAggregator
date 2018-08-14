@@ -12,16 +12,18 @@ namespace GodelTech.CommunityAggregator.Api
 {
     public class Startup
     {
+        private readonly IConfiguration config;
+
+        public Startup(IConfiguration config)
+        {
+            this.config = config;
+        }
+
         public void ConfigureServices(IServiceCollection services)
         {
-            var config = new ConfigurationBuilder()
-                .SetBasePath(Directory.GetCurrentDirectory())
-                .AddJsonFile("appsettings.json")
-                .Build();
+            string connectionString = config.GetConnectionString("DefaultConnection");
 
-            string conncetionString = config.GetConnectionString("DefaultConnection");
-
-            services.AddDbContext<EntityContext>(option => option.UseSqlServer(conncetionString));
+            services.AddDbContext<EntityContext>(option => option.UseSqlServer(connectionString));
             services.AddScoped<IUnitOfWork, UnitOfWork>();
         }
 

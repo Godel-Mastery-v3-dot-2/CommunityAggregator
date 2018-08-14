@@ -4,7 +4,7 @@ namespace GodelTech.CommunityAggregator.Dal.Interfaces
 {
     public interface IUnitOfWork
     {
-        IRepository<Article> NewsRepository { get; }
+        IRepository<Article> ArticleRepository { get; }
         void Commit();
     }
 }
