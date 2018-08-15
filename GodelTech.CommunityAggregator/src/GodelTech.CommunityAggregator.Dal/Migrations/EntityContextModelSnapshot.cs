@@ -4,12 +4,11 @@ using GodelTech.CommunityAggregator.Dal.EntityFramework;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
-using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace GodelTech.CommunityAggregator.Dal.Migrations
 {
     [DbContext(typeof(EntityContext))]
-    partial class EntityContextModelSnapshot : ModelSnapshot
+    internal class EntityContextModelSnapshot : ModelSnapshot
     {
         protected override void BuildModel(ModelBuilder modelBuilder)
         {

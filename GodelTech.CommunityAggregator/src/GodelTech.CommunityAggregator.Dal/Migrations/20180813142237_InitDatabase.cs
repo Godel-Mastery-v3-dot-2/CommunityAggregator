@@ -12,12 +12,12 @@ namespace GodelTech.CommunityAggregator.Dal.Migrations
                 name: "Articles",
                 columns: table => new
                 {
-                    Id = table.Column<int>(nullable: false)
+                    Id = table.Column<int>()
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
                     Title = table.Column<string>(maxLength: 256, nullable: true),
                     Description = table.Column<string>(maxLength: 1024, nullable: true),
                     ImageUrl = table.Column<string>(maxLength: 256, nullable: true),
-                    Date = table.Column<DateTime>(nullable: false)
+                    Date = table.Column<DateTime>()
                 },
                 constraints: table =>
                 {

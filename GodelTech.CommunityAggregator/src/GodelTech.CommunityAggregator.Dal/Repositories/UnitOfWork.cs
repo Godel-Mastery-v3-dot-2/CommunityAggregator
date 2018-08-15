@@ -11,10 +11,10 @@ namespace GodelTech.CommunityAggregator.Dal.Repositories
         public UnitOfWork(EntityContext dbContext)
         {
             this.dbContext = dbContext;
-            ArticleRepository = new Repository<Article>(dbContext);
+            ArticleRepository = new Repository<ArticleEntity>(dbContext);
         }
 
-        public IRepository<Article> ArticleRepository { get; }
+        public IRepository<ArticleEntity> ArticleRepository { get; }
 
         public void Commit()
         {

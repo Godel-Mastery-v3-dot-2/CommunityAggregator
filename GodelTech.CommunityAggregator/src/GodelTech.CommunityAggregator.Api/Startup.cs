@@ -1,4 +1,6 @@
-﻿using System.IO;
+﻿using AutoMapper;
+using GodelTech.CommunityAggregator.Bll.Interfaces;
+using GodelTech.CommunityAggregator.Bll.Services;
 using GodelTech.CommunityAggregator.Dal.EntityFramework;
 using GodelTech.CommunityAggregator.Dal.Interfaces;
 using GodelTech.CommunityAggregator.Dal.Repositories;
@@ -25,6 +27,11 @@ namespace GodelTech.CommunityAggregator.Api
 
             services.AddDbContext<EntityContext>(option => option.UseSqlServer(connectionString));
             services.AddScoped<IUnitOfWork, UnitOfWork>();
+
+            // BusinessLogic
+            services.AddScoped<IArticleService, ArticleService>();
+
+            services.AddAutoMapper();
         }
 
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)
