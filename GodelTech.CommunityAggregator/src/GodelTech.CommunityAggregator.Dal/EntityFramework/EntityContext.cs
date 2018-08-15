@@ -7,14 +7,17 @@ namespace GodelTech.CommunityAggregator.Dal.EntityFramework
     public sealed class EntityContext : DbContext
     {
         public DbSet<ArticleEntity> Articles { get; set; }
+        public DbSet<UserEntity> Users { get; set; }
 
-        public EntityContext(DbContextOptions<EntityContext> options) : base(options)
+        public EntityContext(DbContextOptions<EntityContext> options)
+            : base(options)
         {
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.ApplyConfiguration(new ArticleConfiguration());
+            modelBuilder.ApplyConfiguration(new UserConfiguration());
         }
     }
 }
