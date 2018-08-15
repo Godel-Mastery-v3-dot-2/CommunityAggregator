@@ -39,6 +39,25 @@ namespace GodelTech.CommunityAggregator.Dal.Migrations
 
                     b.ToTable("Articles");
                 });
+
+            modelBuilder.Entity("GodelTech.CommunityAggregator.Dal.Models.UserEntity", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("Login")
+                        .HasMaxLength(128);
+
+                    b.Property<string>("Password")
+                        .HasMaxLength(128);
+
+                    b.Property<string>("Role");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Users");
+                });
 #pragma warning restore 612, 618
         }
     }

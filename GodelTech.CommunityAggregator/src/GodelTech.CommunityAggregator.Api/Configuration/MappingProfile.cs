@@ -15,6 +15,12 @@ namespace GodelTech.CommunityAggregator.Api.Configuration
 
             CreateMap<ArticleDto, ArticleView>();
             CreateMap<ArticleView, ArticleDto>();
+
+            CreateMap<UserDto, UserEntity>();
+            CreateMap<UserEntity, UserDto>();
+
+            CreateMap<UserDto, UserView>();
+            CreateMap<UserView, UserDto>();
         }
     }
 }
