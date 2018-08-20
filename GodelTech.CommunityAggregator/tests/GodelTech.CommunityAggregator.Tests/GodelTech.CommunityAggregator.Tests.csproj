@@ -16,7 +16,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\src\GodelTech.CommunityAggregator.Api\GodelTech.CommunityAggregator.Api.csproj" />
     <ProjectReference Include="..\..\src\GodelTech.CommunityAggregator.Bll\GodelTech.CommunityAggregator.Bll.csproj" />
     <ProjectReference Include="..\..\src\GodelTech.CommunityAggregator.Dal\GodelTech.CommunityAggregator.Dal.csproj" />
   </ItemGroup>

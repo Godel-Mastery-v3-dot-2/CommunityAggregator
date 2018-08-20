@@ -23,19 +23,22 @@ namespace GodelTech.CommunityAggregator.Api
 
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddAutoMapper();
+
             string connectionString = config.GetConnectionString("DefaultConnection");
 
             services.AddDbContext<EntityContext>(option => option.UseSqlServer(connectionString));
+            services.AddScoped<IArticleService, ArticleService>();
             services.AddScoped<IUnitOfWork, UnitOfWork>();
 
-            // BusinessLogic
-            services.AddScoped<IArticleService, ArticleService>();
-
-            services.AddAutoMapper();
+            services.AddCors();
+            services.AddMvc();
         }
 
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)
-        {
+        { 
+            app.UseCors(p => p.AllowAnyOrigin().AllowAnyHeader().AllowAnyMethod());
+            app.UseMvc();
         }
     }
 }

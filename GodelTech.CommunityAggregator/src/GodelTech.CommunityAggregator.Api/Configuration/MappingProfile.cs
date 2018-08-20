@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using GodelTech.CommunityAggregator.Api.Models;
 using GodelTech.CommunityAggregator.Bll.Dto;
 using GodelTech.CommunityAggregator.Dal.Models;
 
@@ -11,6 +12,9 @@ namespace GodelTech.CommunityAggregator.Api.Configuration
             // ArticleDto to DomainModel and back
             CreateMap<ArticleDto, ArticleEntity>();
             CreateMap<ArticleEntity, ArticleDto>();
+
+            CreateMap<ArticleDto, ArticleView>();
+            CreateMap<ArticleView, ArticleDto>();
         }
     }
 }

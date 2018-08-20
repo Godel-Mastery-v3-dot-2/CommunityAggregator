@@ -4,13 +4,16 @@ using GodelTech.CommunityAggregator.Dal.EntityFramework;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
+using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace GodelTech.CommunityAggregator.Dal.Migrations
 {
     [DbContext(typeof(EntityContext))]
-    internal class EntityContextModelSnapshot : ModelSnapshot
+    [Migration("20180816114707_RenameArticleProperties")]
+    partial class RenameArticleProperties
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
