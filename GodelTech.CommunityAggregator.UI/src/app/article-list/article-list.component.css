@@ -1,0 +1,25 @@
+.article_body {
+	position: relative;
+	padding: 0;
+	width: 1180px;
+	color: #4a4a4a;
+	margin: 0 0 24px 0;
+}
+
+.article_body h2, .article_body h3, .article_body h4 {
+	color: #212121;
+}
+
+.article_body ul {
+	list-style: none;
+}
+
+.article_body ul li {
+	padding: 8px 0 8px 0;
+	border-top: dotted 1px #c9c9c9;
+}
+
+.article_body ul li.first {
+	padding-top: 0;
+	border-top: 0;
+}

@@ -1,0 +1,13 @@
+<div class="content">
+  <h2>
+    {{ articleData.title }}
+    <div class="publishDate">
+      ({{ articleData.publishDate | date}})
+    </div>
+  </h2>
+  <img class="left picture" [src]="articleData.imageUrl" alt="" />
+  <p>
+    {{ articleData.description }}
+  </p>
+</div>
+<br class="clear">

@@ -1,0 +1,10 @@
+.bg {
+	background: url('../assets/images/highlight.png') top left repeat-x;
+	padding: 48px 0 48px 0;
+}
+
+.outer {
+	position: relative;
+	width: 1180px;
+	margin: 0 auto;
+}
