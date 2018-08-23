@@ -1,15 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IdentityModel.Tokens.Jwt;
-using System.Linq;
-using System.Security.Claims;
-using System.Threading.Tasks;
-using GodelTech.CommunityAggregator.Api.Configuration;
+﻿using AutoMapper;
+using GodelTech.CommunityAggregator.Api.Helpers;
+using GodelTech.CommunityAggregator.Api.Models;
+using GodelTech.CommunityAggregator.Bll.Dto;
 using GodelTech.CommunityAggregator.Bll.Interfaces;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.IdentityModel.Tokens;
-using Newtonsoft.Json;
 
 namespace GodelTech.CommunityAggregator.Api.Controllers
 {
@@ -18,71 +12,43 @@ namespace GodelTech.CommunityAggregator.Api.Controllers
     public class AccountController : Controller
     {
         private readonly IAccountService accountService;
+        private readonly IMapper mapper;
 
-        public AccountController(IAccountService accountService)
+        public AccountController(IAccountService accountService, IMapper mapper)
         {
             this.accountService = accountService;
+            this.mapper = mapper;
         }
 
         [HttpPost("/token")]
-        public async Task Token()
+        public IActionResult GetToken([FromBody]LoginView value)
         {
-            var username = Request.Form["username"];
-            var password = Request.Form["password"];
+            var username = value.Login;
+            var password = value.Password;
 
-            var identity = GetIdentity(username, password);
+            var identity = accountService.GetIndentity(username, password);
             if (identity == null)
             {
-                Response.StatusCode = 400;
-                await Response.WriteAsync("Invalid username or password.");
-                return;
+                return BadRequest("Invalid username or password.");
             }
 
-            var now = DateTime.UtcNow;
-            var jwt = new JwtSecurityToken(
-                    issuer: AuthOptions.Issuer,
-                    audience: AuthOptions.Audience,
-                    notBefore: now,
-                    claims: identity.Claims,
-                    expires: now.Add(TimeSpan.FromMinutes(AuthOptions.Lifetime)),
-                    signingCredentials: new SigningCredentials(AuthOptions.GetSymmetricSecurityKey(), SecurityAlgorithms.HmacSha256));
-
-            var encodedJwt = new JwtSecurityTokenHandler().WriteToken(jwt);
-
-            var response = new
-            {
-                access_token = encodedJwt,
-                username = identity.Name
-            };
-
-            Response.ContentType = "application/json";
-            await Response.WriteAsync(JsonConvert.SerializeObject(response, new JsonSerializerSettings { Formatting = Formatting.Indented }));
+            return Ok(JwtTokenHelper.GetJwtToken(identity, value.Login));
         }
 
-        [NonAction]
-        private ClaimsIdentity GetIdentity(string username, string password)
+        [HttpPost]
+        public IActionResult CreateUser([FromBody]LoginView value)
         {
-            var user = accountService.GetUsers()
-                .FirstOrDefault(p => p.Login == username && p.Password == password);
-            if (user == null)
+            if (!ModelState.IsValid)
             {
-                return null;
+                return BadRequest("Invalid username or password.");
             }
 
-            var claims = new List<Claim>
-            {
-                new Claim(ClaimsIdentity.DefaultNameClaimType, user.Login),
-                new Claim(ClaimsIdentity.DefaultRoleClaimType, user.Role)
-            };
+            var user = mapper.Map<LoginView, UserDto>(value);
+            user.Role = "user";
+            accountService.CreateUser(user);
 
-            ClaimsIdentity claimsIdentity =
-                new ClaimsIdentity(
-                    claims,
-                    "Token",
-                    ClaimsIdentity.DefaultNameClaimType,
-                    ClaimsIdentity.DefaultRoleClaimType);
+            return Ok("Account has been created");
 
-            return claimsIdentity;
         }
     }
 }
