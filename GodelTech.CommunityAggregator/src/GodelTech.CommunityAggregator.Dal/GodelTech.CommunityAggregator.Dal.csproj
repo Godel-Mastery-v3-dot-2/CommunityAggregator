@@ -6,6 +6,7 @@
 
   <ItemGroup>
     <Compile Remove="EntityFramework\ContextFactory.cs" />
+    <Compile Remove="Migrations\20180823102616_UserEntityPropertyTypeToInt.cs" />
   </ItemGroup>
 
   <ItemGroup>

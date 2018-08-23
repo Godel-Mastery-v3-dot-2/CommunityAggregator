@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Claims;
 using AutoMapper;
 using GodelTech.CommunityAggregator.Bll.Dto;
 using GodelTech.CommunityAggregator.Bll.Interfaces;
@@ -22,20 +23,29 @@ namespace GodelTech.CommunityAggregator.Bll.Services
                 ?? throw new ArgumentNullException(nameof(mapper));
         }
 
-        public IList<UserDto> GetUsers()
+        public ClaimsIdentity GetIndentity(string login, string password)
         {
-            var users = unitOfWork.UserRepository.GetAll();
-            var result = users.Select(item => mapper.Map<UserEntity, UserDto>(item)).ToList();
+            var user = unitOfWork.UserRepository.GetAll()
+                .FirstOrDefault(p => p.Login == login && p.Password.GetHashCode() == password.GetHashCode());
+            if (user == null)
+            {
+                return null;
+            }
 
-            return result;
-        }
+            var claims = new List<Claim>
+            {
+                new Claim(ClaimsIdentity.DefaultNameClaimType, user.Login),
+                new Claim(ClaimsIdentity.DefaultRoleClaimType, user.Role)
+            };
 
-        public UserDto GetUser(int id)
-        {
-            var userEntity = unitOfWork.UserRepository.GetItem(id);
-            var result = mapper.Map<UserEntity, UserDto>(userEntity);
+            ClaimsIdentity claimsIdentity =
+                new ClaimsIdentity(
+                    claims,
+                    "Token",
+                    ClaimsIdentity.DefaultNameClaimType,
+                    ClaimsIdentity.DefaultRoleClaimType);
 
-            return result;
+            return claimsIdentity;
         }
 
         public void CreateUser(UserDto user)
@@ -46,23 +56,9 @@ namespace GodelTech.CommunityAggregator.Bll.Services
             }
 
             var userEntity = mapper.Map<UserDto, UserEntity>(user);
+            userEntity.Password = user.Password.GetHashCode();
             unitOfWork.UserRepository.Create(userEntity);
-        }
-
-        public void UpdateUser(UserDto user)
-        {
-            if (user == null)
-            {
-                throw new ArgumentNullException(nameof(user));
-            }
-
-            var userEntity = mapper.Map<UserDto, UserEntity>(user);
-            unitOfWork.UserRepository.Update(userEntity);
-        }
-
-        public void RemoveUser(int id)
-        {
-            unitOfWork.UserRepository.Remove(id);
+            unitOfWork.Commit();
         }
     }
 }
