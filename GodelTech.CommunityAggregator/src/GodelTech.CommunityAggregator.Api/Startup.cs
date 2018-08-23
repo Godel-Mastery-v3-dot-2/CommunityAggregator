@@ -31,7 +31,7 @@ namespace GodelTech.CommunityAggregator.Api
             services.AddScoped<IArticleService, ArticleService>();
             services.AddScoped<IAccountService, AccountService>();
 
-            AuthOptions.AddAuthenticationService(services);
+            AuthOptions.AddAuthenticationService(services, config);
             services.AddAutoMapper();
             services.AddCors();
             services.AddMvc();
