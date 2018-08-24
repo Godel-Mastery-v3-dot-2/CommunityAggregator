@@ -1,7 +1,8 @@
 export class Article {
     constructor(
+        public id? : string,
         public title? : string,
-        public description? : string,
+        public body? : string,
         public imageUrl? : string,
         public publishDate? : Date
     ) { }

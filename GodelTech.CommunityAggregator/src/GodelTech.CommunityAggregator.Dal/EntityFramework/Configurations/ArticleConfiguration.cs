@@ -9,7 +9,6 @@ namespace GodelTech.CommunityAggregator.Dal.EntityFramework.Configurations
         public void Configure(EntityTypeBuilder<ArticleEntity> builder)
         {
             builder.Property(p => p.Title).HasMaxLength(256);
-            builder.Property(p => p.Description).HasMaxLength(1024);
             builder.Property(p => p.ImageUrl).HasMaxLength(256);
         }
     }

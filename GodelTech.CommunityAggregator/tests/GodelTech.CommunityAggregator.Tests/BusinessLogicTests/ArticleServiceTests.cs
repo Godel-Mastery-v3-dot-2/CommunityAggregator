@@ -23,11 +23,11 @@ namespace GodelTech.CommunityAggregator.Tests.BusinessLogicTests
         {
             var articles = new List<ArticleEntity>
             {
-                new ArticleEntity {Id = 1, Title = "Article1", Description = "Description1", ImageUrl = "Url", PublishDate = DateTime.Now.Date},
-                new ArticleEntity {Id = 2, Title = "Article2", Description = "Description1", ImageUrl = "Url", PublishDate = DateTime.Now.Date},
-                new ArticleEntity {Id = 3, Title = "Article3", Description = "Description1", ImageUrl = "Url", PublishDate = DateTime.Now.Date},
-                new ArticleEntity {Id = 4, Title = "Article4", Description = "Description1", ImageUrl = "Url", PublishDate = DateTime.Now.Date},
-                new ArticleEntity {Id = 5, Title = "Article5", Description = "Description1", ImageUrl = "Url", PublishDate = DateTime.Now.Date}
+                new ArticleEntity {Id = 1, Title = "Article1", Body = "Description1", ImageUrl = "Url", PublishDate = DateTime.Now.Date},
+                new ArticleEntity {Id = 2, Title = "Article2", Body = "Description1", ImageUrl = "Url", PublishDate = DateTime.Now.Date},
+                new ArticleEntity {Id = 3, Title = "Article3", Body = "Description1", ImageUrl = "Url", PublishDate = DateTime.Now.Date},
+                new ArticleEntity {Id = 4, Title = "Article4", Body = "Description1", ImageUrl = "Url", PublishDate = DateTime.Now.Date},
+                new ArticleEntity {Id = 5, Title = "Article5", Body = "Description1", ImageUrl = "Url", PublishDate = DateTime.Now.Date}
             };
 
             mapper = new Mock<IMapper>();
