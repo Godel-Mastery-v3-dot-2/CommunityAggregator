@@ -3,6 +3,7 @@ using GodelTech.CommunityAggregator.Api.Helpers;
 using GodelTech.CommunityAggregator.Api.Models;
 using GodelTech.CommunityAggregator.Bll.Dto;
 using GodelTech.CommunityAggregator.Bll.Interfaces;
+using GodelTech.CommunityAggregator.Dal.Agreements;
 using Microsoft.AspNetCore.Mvc;
 
 namespace GodelTech.CommunityAggregator.Api.Controllers
@@ -44,7 +45,7 @@ namespace GodelTech.CommunityAggregator.Api.Controllers
             }
 
             var user = mapper.Map<LoginView, UserDto>(value);
-            user.Role = "user";
+            user.Role = UserRole.User;
             accountService.CreateUser(user);
 
             return Ok("Account has been created");

@@ -21,7 +21,7 @@ namespace GodelTech.CommunityAggregator.Api.Configuration
 
         public static void AddAuthenticationService(IServiceCollection services, IConfiguration config)
         {
-            var section = config.GetSection("TokenConfig");
+            var section = config.GetSection("JwtTokenConfig");
             Issuer = section.GetSection("Issuer").Value;
             Audience = section.GetSection("Audience").Value;
             Key = section.GetSection("Key").Value;

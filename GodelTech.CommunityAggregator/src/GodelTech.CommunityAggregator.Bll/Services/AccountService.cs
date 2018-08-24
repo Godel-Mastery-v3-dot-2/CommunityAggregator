@@ -5,6 +5,7 @@ using System.Security.Claims;
 using AutoMapper;
 using GodelTech.CommunityAggregator.Bll.Dto;
 using GodelTech.CommunityAggregator.Bll.Interfaces;
+using GodelTech.CommunityAggregator.Dal.Agreements;
 using GodelTech.CommunityAggregator.Dal.Interfaces;
 using GodelTech.CommunityAggregator.Dal.Models;
 
@@ -26,7 +27,7 @@ namespace GodelTech.CommunityAggregator.Bll.Services
         public ClaimsIdentity GetIndentity(string login, string password)
         {
             var user = unitOfWork.UserRepository.GetAll()
-                .FirstOrDefault(p => p.Login == login && p.Password.GetHashCode() == password.GetHashCode());
+                .FirstOrDefault(p => p.Login == login && p.PasswordHash.GetHashCode() == password.GetHashCode());
             if (user == null)
             {
                 return null;
@@ -35,7 +36,7 @@ namespace GodelTech.CommunityAggregator.Bll.Services
             var claims = new List<Claim>
             {
                 new Claim(ClaimsIdentity.DefaultNameClaimType, user.Login),
-                new Claim(ClaimsIdentity.DefaultRoleClaimType, user.Role)
+                new Claim(ClaimsIdentity.DefaultRoleClaimType, user.Role.ToString())
             };
 
             ClaimsIdentity claimsIdentity =
@@ -56,7 +57,7 @@ namespace GodelTech.CommunityAggregator.Bll.Services
             }
 
             var userEntity = mapper.Map<UserDto, UserEntity>(user);
-            userEntity.Password = user.Password.GetHashCode();
+            userEntity.PasswordHash = user.Password.GetHashCode();
             unitOfWork.UserRepository.Create(userEntity);
             unitOfWork.Commit();
         }

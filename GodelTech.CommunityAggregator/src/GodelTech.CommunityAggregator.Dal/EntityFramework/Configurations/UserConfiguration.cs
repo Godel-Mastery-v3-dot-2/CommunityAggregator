@@ -9,7 +9,8 @@ namespace GodelTech.CommunityAggregator.Dal.EntityFramework.Configurations
         public void Configure(EntityTypeBuilder<UserEntity> builder)
         {
             builder.Property(p => p.Login).HasMaxLength(128);
-            builder.Property(p => p.Password).HasMaxLength(128);
+            builder.Property(p => p.PasswordHash).HasMaxLength(128);
+            builder.Property(p => p.Role).HasColumnType("VARCHAR(50)");
         }
     }
 }
